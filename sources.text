@@ -6,4 +6,4 @@ OAuth2.0 workflow: https://developers.google.com/identity/protocols/oauth2
 Google API: https://github.com/googleapis/google-api-python-client
 OAuth2:     https://github.com/googleapis/google-api-python-client/blob/main/docs/oauth.md
 
-    
+Hugging Face: https://huggingface.co/docs/api-inference/tasks/text-generation#using-the-api
