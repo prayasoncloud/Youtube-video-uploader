@@ -14,7 +14,7 @@ API_URL = "https://api-inference.huggingface.co/models/google/gemma-2-2b-it"
 API_TOKEN = os.getenv('THE_API_TOKEN')
 
 
-
+#Auth2.0
 def store_auth_auth_code_token(creds):
     with open(TOKEN_FILE, "w") as token_file:
         json.dump(creds.to_json(), token_file)
@@ -43,6 +43,7 @@ def get_authenticated_service():
 
 headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
+#Hugging Face 
 def generate_description(text):
     payload = {
         "inputs": f"Write a YouTube video description for: {text}",
@@ -64,9 +65,9 @@ def generate_description(text):
         return f"Error: {response.status_code}, {response.text}"
 
 
-input_text = "Jogging in the park"
-description = generate_description(input_text)
-print(description)
+# input_text = "Jogging in the park"
+# description = generate_description(input_text)
+# print(description)
 
 
 
@@ -85,21 +86,22 @@ def main():
 
     for filename in os.listdir(directory_path):
         file_path = os.path.join(directory_path, filename)
-        name_of_the_video += filename
+        name_of_the_video += filename[:-4:]
         break
 
+    description_of_the = generate_description(name_of_the_video)
 
     request = youtube.videos().insert(
         part="snippet,status",
         body={
             "snippet": {
                 "title": f"{filename}",
-                "description": "Upload video test1 description",
+                "description": f"{description_of_the}",
                 "tags": ["1", "2", "thee"], 
                 "categoryId": "1"
             },
             "status": {
-                "privacyStatus": "public"
+                "privacyStatus": "private"
             }
         },
         media_body= file_path
